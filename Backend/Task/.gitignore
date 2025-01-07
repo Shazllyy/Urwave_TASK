@@ -12,6 +12,27 @@
 *.user
 *.userosscache
 *.sln.docstates
+# Ignore all obj folders and their contents
+**/obj/
+
+# Specifically ignore generated files within the obj folder
+**/obj/*.nuget.dgspec.json
+**/obj/*.cache
+**/obj/*.assets.cache
+**/obj/*.editorconfig
+**/obj/*.AssemblyReference.cache
+**/obj/*.AssemblyInfo.cs
+**/obj/*.AssemblyInfoInputs.cache
+
+# Ignore all files in Debug folders
+**/Debug/
+
+# Ignore all project.assets.json files
+**/obj/project.assets.json
+
+# Ignore all project.nuget.cache files
+**/obj/project.nuget.cache
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
