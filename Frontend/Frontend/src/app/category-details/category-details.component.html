@@ -1,0 +1,65 @@
+<div *ngIf="isLoading" class="text-center text-xl font-semibold text-gray-500">Loading...</div>
+<div *ngIf="errorMessage" class="text-center text-xl font-semibold text-red-500">{{ errorMessage }}</div>
+
+<!-- Main Category -->
+<div *ngIf="category" class="max-w-4xl mx-auto my-6 p-6 border-2 border-transparent rounded-lg shadow-2xl bg-gradient-to-r from-indigo-600 to-blue-500">
+  <h2 class="text-3xl font-bold text-white">{{ category.name }}</h2>
+  <p class="text-gray-200 mt-2">{{ category.description }}</p>
+
+  <!-- Main Category Products -->
+  <div *ngIf="products && products.length > 0" class="mt-6">
+    <h3 class="text-xl font-semibold text-white">Products in {{ category.name }}:</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+      <div *ngFor="let product of products" class="product-card">
+        <div class="bg-white border border-gray-300 rounded-xl shadow-xl p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <h4 class="font-semibold text-lg text-gray-800">{{ product.name }}</h4>
+          <p class="text-gray-600 mt-2">{{ product.description }}</p>
+          <p class="text-gray-800 font-bold mt-4">${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- If no products in main category, show message -->
+  <div *ngIf="products && products.length === 0 && !isLoading" class="mt-6 text-gray-600">
+    <p>No products available in this category.</p>
+  </div>
+
+  <!-- Subcategories -->
+  <div *ngIf="subcategories && subcategories.length > 0" class="mt-8">
+    <h3 class="text-xl font-semibold text-white">Subcategories:</h3>
+    <div class="space-y-6 mt-4">
+      <div *ngFor="let subcategory of subcategories" class="bg-white border border-gray-300 rounded-xl shadow-xl p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <h4 class="font-semibold text-lg text-gray-800">{{ subcategory.name }}</h4>
+        <p class="text-gray-600 mt-2">{{ subcategory.description }}</p>
+
+        <!-- Subcategory Products -->
+        <div *ngIf="subcategory.products && subcategory.products.length > 0" class="mt-4">
+          <h5 class="text-lg font-semibold text-gray-800">Products in {{ subcategory.name }}:</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            <div *ngFor="let subProduct of subcategory.products" class="bg-white border border-gray-300 rounded-xl shadow-xl p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <h5 class="font-semibold text-lg text-gray-800">{{ subProduct.name }}</h5>
+              <p class="text-gray-600 mt-2">{{ subProduct.description }}</p>
+              <p class="text-gray-800 font-bold mt-4">${{ subProduct.price }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- If no products in subcategory, show message -->
+        <div *ngIf="!subcategory.products || subcategory.products.length === 0" class="mt-4 text-gray-600">
+          <p>No products available in this subcategory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- If no subcategories, show message -->
+  <div *ngIf="subcategories && subcategories.length === 0 && !isLoading" class="mt-6 text-gray-600">
+    <p>No subcategories available.</p>
+  </div>
+</div>
+
+<!-- If no category, show error message -->
+<div *ngIf="!category && !isLoading" class="text-center text-xl font-semibold text-red-500">
+  <p>Category details could not be loaded.</p>
+</div>

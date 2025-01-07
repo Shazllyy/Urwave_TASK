@@ -1,0 +1,98 @@
+<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-md">
+    <h2 class="text-xl font-semibold mb-4">Edit Product</h2>
+  
+    <form (ngSubmit)="updateProduct()">
+      <!-- Display error message -->
+      <div *ngIf="!productForm.name || !productForm.categoryId" class="mb-4 text-red-600">
+        Please fill out the required fields!
+      </div>
+  
+      <!-- Product Name -->
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+        <input 
+          id="name" 
+          [(ngModel)]="productForm.name" 
+          name="name" 
+          required 
+          type="text" 
+          class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+          placeholder="Enter product name" />
+      </div>
+  
+      <!-- Product Description -->
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Product Description</label>
+        <textarea 
+          id="description" 
+          [(ngModel)]="productForm.description" 
+          name="description" 
+          class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+          placeholder="Enter product description"></textarea>
+      </div>
+  
+      <!-- Product Price -->
+      <div class="mb-4">
+        <label for="price" class="block text-sm font-medium text-gray-700">Product Price</label>
+        <input 
+          id="price" 
+          [(ngModel)]="productForm.price" 
+          name="price" 
+          required 
+          type="number" 
+          class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+          placeholder="Enter product price" />
+      </div>
+  
+      <!-- Product Status -->
+      <div class="mb-4">
+        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+        <p-dropdown 
+          id="status" 
+          [options]="statusOptions" 
+          [(ngModel)]="productForm.status" 
+          name="status" 
+          placeholder="Select Status">
+        </p-dropdown>
+      </div>
+  
+      <!-- Product Category (Dropdown) -->
+      <div class="mb-4">
+        <label for="category" class="block text-sm font-medium text-gray-700">Product Category</label>
+        <p-dropdown
+          id="category"
+          [(ngModel)]="productForm.categoryId"
+          name="category" 
+          [options]="categoryOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select a Category"
+          class="w-full">
+        </p-dropdown>
+      </div>
+  
+      <!-- Product Stock Quantity -->
+      <div class="mb-4">
+        <label for="stockQuantity" class="block text-sm font-medium text-gray-700">Stock Quantity</label>
+        <input 
+          id="stockQuantity" 
+          [(ngModel)]="productForm.stockQuantity" 
+          name="stockQuantity" 
+          required 
+          type="number" 
+          class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+          placeholder="Enter stock quantity" />
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="flex justify-end">
+        <button 
+          type="submit" 
+          [disabled]="isLoading" 
+          class="p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          {{ isLoading ? 'Updating...' : 'Update Product' }}
+        </button>
+      </div>
+    </form>
+  </div>
+  

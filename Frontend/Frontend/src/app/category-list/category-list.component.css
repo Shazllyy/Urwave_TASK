@@ -1,0 +1,17 @@
+/* Category List Component Styles */
+button {
+    margin: 0 5px;
+  }
+  
+  th, td {
+    text-align: center;
+  }
+  
+  .p-table .p-sortable-column {
+    cursor: pointer;
+  }
+  
+  .p-inputtext, .p-dropdown {
+    width: 100%;
+  }
+  

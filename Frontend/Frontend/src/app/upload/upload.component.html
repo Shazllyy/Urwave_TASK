@@ -1,0 +1,18 @@
+<div>
+    <h2>File Upload</h2>
+  
+    <!-- Button to Retrieve CSRF Token -->
+    <button (click)="onRetrieveToken()" [disabled]="isLoading">Retrieve CSRF Token</button>
+  
+    <!-- File Input for Image Selection -->
+    <input type="file" (change)="onFileSelected($event)" [disabled]="isLoading" />
+  
+    <!-- Upload Button -->
+    <button (click)="onUpload()" [disabled]="isLoading || !fileToUpload">Upload</button>
+  
+    <!-- Message Display -->
+  
+  
+    <!-- Loading Indicator -->
+  </div>
+  

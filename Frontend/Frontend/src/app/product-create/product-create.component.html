@@ -1,0 +1,59 @@
+<div class="container">
+    <h2>Create Product</h2>
+    <form (ngSubmit)="createProduct()">
+        <!-- Product Name -->
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input id="name" type="text" pInputText [(ngModel)]="productForm.name" name="name" required />
+        </div>
+
+        <!-- Product Description -->
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input id="description" type="text" pInputText [(ngModel)]="productForm.description" name="description" />
+        </div>
+
+        <!-- Product Price -->
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input id="price" type="number" pInputNumber [(ngModel)]="productForm.price" name="price" required />
+        </div>
+
+        <!-- Category Dropdown -->
+        <p-dropdown 
+            id="category" 
+            [(ngModel)]="productForm.categoryId" 
+            [options]="categoryOptions" 
+            optionLabel="label" 
+            optionValue="value"  
+            placeholder="Select Category" 
+            name="categoryId"  
+            required
+            (onChange)="onCategoryChange($event)"  
+        ></p-dropdown>
+
+        <!-- Stock Quantity -->
+        <div class="form-group">
+            <label for="stockQuantity">Stock Quantity</label>
+            <input id="stockQuantity" type="number" pInputNumber [(ngModel)]="productForm.stockQuantity" name="stockQuantity" required />
+        </div>
+
+        <!-- Image File Upload -->
+        <div class="form-group">
+            <label for="imageFile">Upload Image</label>
+            <input id="imageFile" type="file" (change)="onImageUpload($event)" accept="image/*" required />
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+            <label>Status</label>
+            <p-dropdown [(ngModel)]="productForm.status" [options]="statusOptions" optionLabel="label" name="status" placeholder="Select Status"></p-dropdown>
+        </div>
+
+        <!-- Submit Button -->
+        <button pButton type="submit" label="Create Product" [disabled]="isLoading"></button>
+    </form>
+
+    <!-- Loading Message -->
+    <div *ngIf="isLoading">Creating product...</div> 
+</div>

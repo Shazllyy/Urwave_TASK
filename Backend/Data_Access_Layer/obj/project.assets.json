@@ -4012,11 +4012,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Desktop\\New folder (2)\\Urwave_TASK\\Backend\\Data_Access_Layer\\Data_Access_Layer.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Desktop\\New folder (4)\\Urwave_TASK\\Backend\\Data_Access_Layer\\Data_Access_Layer.csproj",
       "projectName": "Data_Access_Layer",
-      "projectPath": "C:\\Users\\HP\\Desktop\\New folder (2)\\Urwave_TASK\\Backend\\Data_Access_Layer\\Data_Access_Layer.csproj",
+      "projectPath": "C:\\Users\\HP\\Desktop\\New folder (4)\\Urwave_TASK\\Backend\\Data_Access_Layer\\Data_Access_Layer.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HP\\Desktop\\New folder (2)\\Urwave_TASK\\Backend\\Data_Access_Layer\\obj\\",
+      "outputPath": "C:\\Users\\HP\\Desktop\\New folder (4)\\Urwave_TASK\\Backend\\Data_Access_Layer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

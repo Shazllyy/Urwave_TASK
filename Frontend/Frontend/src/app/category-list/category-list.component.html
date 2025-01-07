@@ -1,0 +1,89 @@
+<!-- Filters Section (Above the Table) -->
+<div class="filters mb-6 p-4 bg-gray-100 rounded-lg shadow-lg">
+    <div class="filter-group mb-4">
+      <label for="filter-name" class="block text-sm font-medium text-gray-700">Name</label>
+      <input pInputText type="text" id="filter-name" [(ngModel)]="filteredName" (input)="applyFilters()" placeholder="Search Name" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+    </div>
+  
+    <div class="filter-group mb-4">
+      <label for="filter-status" class="block text-sm font-medium text-gray-700">Status</label>
+      <p-dropdown [(ngModel)]="filteredStatus" [options]="statusOptions" (onChange)="applyFilters()" placeholder="Select Status" class="w-full"/>
+    </div>
+  </div>
+  
+  <!-- Category Table with Inline Editing -->
+  <p-table #dt [value]="filteredCategories" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [filters]="tableFilters" [first]="first" (onLazyLoad)="onLazyLoad($event)" class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <!-- Define columns with sorting and filtering -->
+    <ng-template pTemplate="header">
+      <tr class="bg-gray-200">
+        <th pSortableColumn="name" class="px-4 py-2 text-left text-sm text-gray-600">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status" class="px-4 py-2 text-left text-sm text-gray-600">
+          Status <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th class="px-4 py-2 text-left text-sm text-gray-600">Actions</th> <!-- Actions for Save/Cancel -->
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-category>
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-2">
+          <ng-container *ngIf="!category.isEditing">
+            {{ category.name }}
+          </ng-container>
+          <ng-container *ngIf="category.isEditing">
+            <input pInputText [(ngModel)]="category.name" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          </ng-container>
+        </td>
+        <td class="px-4 py-2">
+            <ng-container *ngIf="!category.isEditing">
+              {{ category.description }}
+            </ng-container>
+            <ng-container *ngIf="category.isEditing">
+              <input pInputText [(ngModel)]="category.description" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+            </ng-container>
+          </td>
+          
+        <td class="px-4 py-2">
+          <ng-container *ngIf="!category.isEditing">
+            {{ category.status }}
+          </ng-container>
+          <ng-container *ngIf="category.isEditing">
+            <p-dropdown [(ngModel)]="category.status" [options]="statusOptions" class="w-full" placeholder="Select Status"></p-dropdown>
+          </ng-container>
+        </td>
+  
+        <td class="px-4 py-2 text-center">
+          <ng-container *ngIf="!category.isEditing">
+            <button pButton icon="pi pi-pencil" (click)="editCategory(category)" class="p-2 text-blue-600 hover:bg-blue-100 rounded-md"></button>
+            <button pButton icon="pi pi-trash" (click)="deleteCategory(category)" class="p-2 text-red-600 hover:bg-red-100 rounded-md"></button>
+          </ng-container>
+          <ng-container *ngIf="category.isEditing">
+            <button pButton label="Cancel" icon="pi pi-times" (click)="cancelEdit(category)" class="p-2 text-red-600 hover:bg-red-100 rounded-md"></button>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- Delete Category Modal -->
+<!-- Modal for category deletion -->
+<div *ngIf="isDeleteModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+    <h3 class="text-xl font-semibold mb-4">Delete Category</h3>
+    <p>Are you sure you want to delete the category <strong>{{ categoryToDelete?.name }}</strong>?</p>
+    
+    <!-- Dropdown to select new category -->
+    <div class="my-4">
+      <label for="newCategory" class="block text-sm font-medium text-gray-700">Reassign to</label>
+      <p-dropdown [(ngModel)]="selectedCategoryId" [options]="categoryOptions" optionLabel="label" optionValue="value" placeholder="Select a category" class="w-full"></p-dropdown>
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button (click)="cancelDelete()" class="p-2 bg-gray-300 text-gray-800 rounded-md mr-2">Cancel</button>
+      <button (click)="confirmDelete()" class="p-2 bg-red-600 text-white rounded-md">Delete</button>
+    </div>
+  </div>
+</div>
+
+  

@@ -1,0 +1,53 @@
+<div class="p-4">
+  <h2>Edit Category</h2>
+
+  <!-- Category Form -->
+  <form (ngSubmit)="onSubmit()">
+    <!-- Name Input Field -->
+    <div class="p-field">
+      <label for="categoryName">Name</label>
+      <input 
+        id="categoryName" 
+        type="text" 
+        [(ngModel)]="category.name" 
+        name="name" 
+        pInputText 
+        required 
+        class="p-inputtext p-component" 
+      />
+    </div>
+
+    <!-- Description Input Field -->
+    <div class="p-field">
+      <label for="categoryDescription">Description</label>
+      <input 
+        id="categoryDescription" 
+        type="text" 
+        [(ngModel)]="category.description" 
+        name="description" 
+        pInputText 
+        required 
+        class="p-inputtext p-component" 
+      />
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="p-field">
+      <label for="categoryStatus">Status</label>
+      <p-dropdown 
+        [(ngModel)]="category.status" 
+        name="status" 
+        [options]="statusOptions" 
+        placeholder="Select Status" 
+        class="p-dropdown p-component" 
+        required
+      ></p-dropdown>
+    </div>
+
+    <!-- Save and Cancel Buttons -->
+    <div class="p-field">
+      <button pButton type="submit" label="Save" icon="pi pi-check"></button>
+      <button pButton type="button" label="Cancel" icon="pi pi-times" (click)="onCancel()"></button>
+    </div>
+  </form>
+</div>

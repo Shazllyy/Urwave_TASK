@@ -1,0 +1,69 @@
+<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-md">
+  <h2 class="text-xl font-semibold mb-4">Create New Category</h2>
+  
+  <form (ngSubmit)="createCategory()">
+    <!-- Display Error Message -->
+ 
+
+    <!-- Category Name -->
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium text-gray-700">Category Name</label>
+      <input 
+        id="name" 
+        [(ngModel)]="categoryForm.Name" 
+        name="name" 
+        required 
+        type="text" 
+        class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+        placeholder="Enter category name" />
+    </div>
+
+    <!-- Category Description -->
+    <div class="mb-4">
+      <label for="description" class="block text-sm font-medium text-gray-700">Category Description</label>
+      <textarea 
+        id="description" 
+        [(ngModel)]="categoryForm.Description" 
+        name="description" 
+        class="w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500" 
+        placeholder="Enter category description"></textarea>
+    </div>
+
+    <!-- Category Status -->
+    <div class="mb-4">
+      <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+      <p-dropdown 
+        id="status" 
+        [options]="statusOptions" 
+        [(ngModel)]="categoryForm.Status" 
+        name="status" 
+        placeholder="Select Status">
+      </p-dropdown>
+    </div>
+
+    <!-- Parent Category (Optional) -->
+    <div class="mb-4">
+      <label for="parentCategory" class="block text-sm font-medium text-gray-700">Parent Category (Optional)</label>
+      <p-dropdown
+        id="parentCategory"
+        [(ngModel)]="categoryForm.ParentCategoryId"
+        name="parentCategory" 
+        [options]="categoryOptions"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Select a Parent Category"
+        class="w-full">
+      </p-dropdown>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end">
+      <button 
+        type="submit" 
+        [disabled]="isLoading" 
+        class="p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        {{ isLoading ? 'Creating...' : 'Create Category' }}
+      </button>
+    </div>
+  </form>
+</div>

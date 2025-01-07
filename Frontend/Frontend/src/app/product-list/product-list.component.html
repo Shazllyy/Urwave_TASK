@@ -1,0 +1,109 @@
+<!-- Filters Section (Above the Table) -->
+<div class="filters mb-6 p-6 bg-white rounded-lg shadow-xl border border-gray-200">
+  <div class="filter-group mb-4">
+    <label for="filter-name" class="block text-sm font-semibold text-gray-800">Name</label>
+    <input pInputText type="text" id="filter-name" [(ngModel)]="filteredName" 
+           (input)="applyFilters()" placeholder="Search Name" 
+           class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200"/>
+  </div>
+
+  <div class="filter-group mb-4">
+    <label for="filter-price" class="block text-sm font-semibold text-gray-800">Price Range</label>
+    <p-dropdown [(ngModel)]="filteredPrice" [options]="priceOptions" 
+                (onChange)="applyFilters()" placeholder="Select Price Range" 
+                class="mt-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group mb-4">
+    <label for="filter-category" class="block text-sm font-semibold text-gray-800">Category</label>
+    <p-dropdown [(ngModel)]="filteredCategory" [options]="categoryOptions" 
+                (onChange)="applyFilters()" placeholder="Select Category" 
+                class="mt-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+    </p-dropdown>
+  </div>
+
+  <div class="filter-group mb-4">
+    <label for="filter-status" class="block text-sm font-semibold text-gray-800">Status</label>
+    <p-dropdown [(ngModel)]="filteredStatus" [options]="statusOptions" 
+                (onChange)="applyFilters()" placeholder="Select Status" 
+                class="mt-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+    </p-dropdown>
+  </div>
+</div>
+
+<!-- Product Table with Inline Editing -->
+<p-table #dt [value]="filteredProducts" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
+         [loading]="loading" [filters]="tableFilters" [first]="first" (onLazyLoad)="onLazyLoad($event)"
+         [sortMode]="'multiple'" (sortFunction)="customSort($event)" 
+         class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+  <ng-template pTemplate="header">
+    <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-700">
+      <th pSortableColumn="name" class="px-4 py-3">Name <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="price" class="px-4 py-3">Price <p-sortIcon field="price"></p-sortIcon></th>
+      <th pSortableColumn="categoryId" class="px-4 py-3">Category <p-sortIcon field="categoryId"></p-sortIcon></th>
+      <th pSortableColumn="stockQuantity" class="px-4 py-3">Status <p-sortIcon field="stockQuantity"></p-sortIcon></th>
+      <th class="px-4 py-3">Actions</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr class="hover:bg-gray-50 transition-all duration-200">
+      <td class="px-4 py-3">
+        <ng-container *ngIf="!product.isEditing">
+          {{ product.name }}
+        </ng-container>
+        <ng-container *ngIf="product.isEditing">
+          <input pInputText [(ngModel)]="product.name" 
+                 class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+        </ng-container>
+      </td>
+
+      <td class="px-4 py-3">
+        <ng-container *ngIf="!product.isEditing">
+          {{ product.price }}
+        </ng-container>
+        <ng-container *ngIf="product.isEditing">
+          <input pInputText type="number" [(ngModel)]="product.price" 
+                 class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+        </ng-container>
+      </td>
+
+      <td *ngIf="!product.isEditing">{{ product.categoryName }}</td>
+      <td *ngIf="product.isEditing">
+        <p-dropdown [(ngModel)]="product.categoryId" 
+                    [options]="categoryOptions" 
+                    optionLabel="label" 
+                    optionValue="value" 
+                    placeholder="Select Category">
+        </p-dropdown>
+      </td>
+
+      <td class="px-4 py-3">
+        <ng-container *ngIf="!product.isEditing">
+          {{ product.status }}
+        </ng-container>
+        <ng-container *ngIf="product.isEditing">
+          <p-dropdown [(ngModel)]="product.status" [options]="statusOptions" 
+                      class="w-full" placeholder="Select Status"></p-dropdown>
+        </ng-container>
+      </td>
+      
+      <td class="px-4 py-3 text-center">
+        <ng-container *ngIf="!product.isEditing">
+          <button pButton icon="pi pi-pencil" 
+                  (click)="editProduct(product)" 
+                  class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg"></button>
+        </ng-container>
+        <ng-container *ngIf="product.isEditing">
+          <button pButton label="Save" icon="pi pi-check" 
+                  (click)="saveProduct(product)" 
+                  class="p-2 text-green-600 hover:bg-green-100 rounded-lg"></button>
+          <button pButton label="Cancel" icon="pi pi-times" 
+                  (click)="cancelEdit(product)" 
+                  class="p-2 text-red-600 hover:bg-red-100 rounded-lg"></button>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
